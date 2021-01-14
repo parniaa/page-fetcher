@@ -1,7 +1,13 @@
 const request = require('request');
-request('http://www.facebook.com/sadafsds.html', (error, response, body) => {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
-});
+const fs = require('fs');
 
+const args = process.argv;
+let inputURI = args[2];
+let inputPath = args[3];
+  
+request(inputURI, (error, response, body) => {
+  fs.writeFile(inputPath, body, (err) => {
+    if (err) throw err;
+    console.log('The file has been saved!');
+  });
+});
